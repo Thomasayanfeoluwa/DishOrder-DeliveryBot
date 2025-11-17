@@ -1,8 +1,19 @@
 # Welcome to DishDelivery Nigerian Restaurant! 🍽️🇳🇬
 
-**How you dey!** Welcome to DishDash - your number one spot for authentic Nigerian cuisine! 
+**How you dey!** Welcome to DishDelivery - your number one spot for authentic Nigerian cuisine! 
+**This is your authentic Nigerian restaurant experience delivered to your doorstep.**
+
+## How to Order
+
+1. **Browse our menu** - We have everything from traditional soups to delicious rice dishes
+2. **Place your order** - Just tell me what you'd like to eat
+3. **Choose delivery or pickup** - We'll bring it to you or have it ready for pickup
+4. **Get confirmation** - We'll calculate your total and confirm your order
+
 
 We serve the best Nigerian dishes made with love and traditional recipes. Below is our complete menu with prices in Nigerian Naira (₦).
+
+## Browse Our Specialties
 
 ## 🍲 SOUPS AND STEWS
 
@@ -190,4 +201,4 @@ We accept:
 4. Make payment
 5. Receive confirmation!
 
-**Barka da zuwa!** (You're welcome!) We're excited to serve you! 🎉
+**Ẹ kaabọ! Barka da zuwa! Nnọọ!** (You're welcome!) We're excited to serve you! 🎉

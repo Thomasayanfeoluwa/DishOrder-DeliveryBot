@@ -1,4 +1,7 @@
-streamlit
+chainlit
+groq
+python-dotenv
 twilio
-chailit
-
+fastapi
+uvicorn
+streamlit

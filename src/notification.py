@@ -6,63 +6,80 @@ from twilio.rest import Client
 class NotificationManager:
 
     def __init__(self):
-        # Retrieve environment variables only once
-        self.smtp_address = os.environ["EMAIL_PROVIDER_SMTP_ADDRESS"]
-        self.email = os.environ["MY_EMAIL"]
-        self.email_password = os.environ["MY_EMAIL_PASSWORD"]
-        self.twilio_virtual_number = os.environ["TWILIO_VIRTUAL_NUMBER"]
-        self.twilio_verified_number = os.environ["TWILIO_VERIFIED_NUMBER"]
-        self.whatsapp_number = os.environ["TWILIO_WHATSAPP_NUMBER"]
-        # Set up Twilio Client and SMTP connection
-        self.client = Client(os.environ['TWILIO_SID'], os.environ["TWILIO_AUTH_TOKEN"])
-        self.connection = smtplib.SMTP(os.environ["EMAIL_PROVIDER_SMTP_ADDRESS"])
+        # Retrieve environment variables
+        self.smtp_address = os.environ.get("EMAIL_PROVIDER_SMTP_ADDRESS", "smtp.gmail.com")
+        self.email = os.environ.get("MANAGER_EMAIL")
+        self.email_password = os.environ.get("MANAGER_EMAIL_PASSWORD")
+        self.twilio_virtual_number = os.environ.get("TWILIO_VIRTUAL_NUMBER")
+        self.twilio_verified_number = os.environ.get("TWILIO_VERIFIED_NUMBER")
+        self.whatsapp_number = os.environ.get("TWILIO_WHATSAPP_NUMBER")
+        
+        # Initialize Twilio Client only if credentials exist
+        twilio_sid = os.environ.get('TWILIO_ACCOUNT_SID')
+        twilio_token = os.environ.get("TWILIO_AUTH_TOKEN")
+
+        if twilio_sid and twilio_token:
+            self.client = Client(twilio_sid, twilio_token)
+            print("Twilio client initialized successfully")
+        else:
+            self.client = None
+            print("Twilio credentials not found. SMS/WhatsApp disabled.")
+
 
     def send_sms(self, message_body):
-        """
-        Sends an SMS message through the Twilio API.
-        This function takes a message body as input and uses the Twilio API to send an SMS from
-        a predefined virtual number (provided by Twilio) to your own "verified" number.
-        It logs the unique SID (Session ID) of the message, which can be used to
-        verify that the message was sent successfully.
+        """Send SMS notification"""
+        if not self.client:
+            print("SMS failed: Twilio client not initialized")
+            return False
+            
+        try:
+            message = self.client.messages.create(
+                from_=self.twilio_virtual_number,
+                body=message_body,
+                to=self.twilio_verified_number
+            )
+            print(f"SMS sent. SID: {message.sid}")
+            return True
+        except Exception as e:
+            print(f"SMS failed: {e}")
+            return False
 
-        Parameters:
-        message_body (str): The text content of the SMS message to be sent.
-
-        Returns:
-        None
-
-        Notes:
-        - Ensure that `TWILIO_VIRTUAL_NUMBER` and `TWILIO_VERIFIED_NUMBER` are correctly set up in
-        your environment (.env file) and correspond with numbers registered and verified in your
-        Twilio account.
-        - The Twilio client (`self.client`) should be initialized and authenticated with your
-        Twilio account credentials prior to using this function when the Notification Manager gets
-        initialized.
-        """
-        message = self.client.messages.create(
-            from_=self.twilio_virtual_number,
-            body=message_body,
-            to=self.twilio_verified_number
-        )
-        # Prints if successfully sent.
-        print(message.sid)
-
-    # Whatsapp Connection
     def send_whatsapp(self, message_body):
-        message = self.client.messages.create(
-            from_=f'whatsapp:{self.whatsapp_number}',
-            body=message_body,
-            to=f'whatsapp:{self.twilio_verified_number}'
-        )
-        print(message.sid)
+        """Send WhatsApp message"""
+        if not self.client:
+            print("WhatsApp failed: Twilio client not initialized")
+            return False
+            
+        try:
+            message = self.client.messages.create(
+                from_=f'whatsapp:{self.whatsapp_number}',
+                body=message_body,
+                to=f'whatsapp:{self.twilio_verified_number}'
+            )
+            print(f"WhatsApp sent. SID: {message.sid}")
+            return True
+        except Exception as e:
+            print(f"WhatsApp failed: {e}")
+            return False
 
     def send_emails(self, email_list, email_body):
-        with self.connection:
-            self.connection.starttls()
-            self.connection.login(self.email, self.email_password)
-            for email in email_list:
-                self.connection.sendmail(
-                    from_addr=self.email,
-                    to_addrs=email,
-                    msg=f"Subject:New Low Price Flight!\n\n{email_body}".encode('utf-8')
-                )
+        """Send email notifications"""
+        if not self.email or not self.email_password:
+            print("Email failed: Email credentials not configured")
+            return False
+            
+        try:
+            with smtplib.SMTP(self.smtp_address) as connection:  # FIXED: Use 'connection' not 'self.connection'
+                connection.starttls()
+                connection.login(self.email, self.email_password)
+                for email in email_list:
+                    connection.sendmail(  # FIXED: Use 'connection' not 'self.connection'
+                        from_addr=self.email,
+                        to_addrs=email,
+                        msg=f"Subject:New Delivery Order!\n\n{email_body}".encode('utf-8')
+                    )
+                    print(f"Email sent to: {email}")
+            return True
+        except Exception as e:
+            print(f"Email failed: {e}")
+            return False
