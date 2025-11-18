@@ -1,11 +1,12 @@
 services:
   - type: web
-    name: dishdash-orderbot
-    env: python
-    plan: free
-    buildCommand: 'pip install -r requirements.txt'
-    startCommand: 'chainlit run app.py --host 0.0.0.0 --port $PORT'
-    autoDeploy: true
+    name: chainlit-app
+    runtime: docker
+    repo: https://github.com/your-username/your-chainlit-repo
+    branch: main
+    dockerfilePath: ./Dockerfile
     envVars:
+      - key: CHAINLIT_AUTH_SECRET
+        generateValue: true
       - key: PORT
-        value: '8000'
+        value: 8000
