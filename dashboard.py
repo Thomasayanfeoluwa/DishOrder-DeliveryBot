@@ -124,7 +124,7 @@ def load_local_image(image_path):
     """Load local image and convert to base64 for display"""
     try:
         # Define the absolute path to the images folder
-        images_folder = Path(r"C:\Users\ADEGOKE\Desktop\DishDelivery-OrderBot\images")
+        images_folder = Path(os.getenv("IMAGES_FOLDER"))
         
         # Extract the base filename without extension
         filename_without_ext = Path(image_path).stem
