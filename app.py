@@ -10,6 +10,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 from src.notification import NotificationManager
 from services.image_service import DishImageService
 from services.payment_service import PaystackService
+from fastapi.staticfiles import StaticFiles
 
 # Load environment variables
 from dotenv import load_dotenv
@@ -171,10 +172,25 @@ async def main(message: cl.Message):
             'payment_processed': False
         }
     
-    # Extract customer info from user message
+    # Extract customer info from user message (preserving original extraction logic)
+    phone_match = re.search(r'(\+?234|0)[789][01]\d{8}', message.content)
+    if phone_match:
+        user_sessions[user_id]['phone'] = phone_match.group()
+    
+    # Look for address indicators
+    if any(keyword in message.content.lower() for keyword in ['address', 'location', 'street', 'house', 'deliver']):
+        user_sessions[user_id]['address'] = message.content
+    
+    # Look for name
+    if 'my name is' in message.content.lower():
+        name_match = re.search(r'my name is (\w+ \w+)', message.content.lower())
+        if name_match:
+            user_sessions[user_id]['name'] = name_match.group(1).title()
+    
+    # Also extract using new method for comprehensive coverage
     user_info = extract_customer_info_from_response(message.content)
     for key in ['name', 'phone', 'address', 'email']:
-        if user_info[key]:
+        if user_info[key] and not user_sessions[user_id][key]:
             user_sessions[user_id][key] = user_info[key]
     
     # Add user message to conversation
@@ -189,7 +205,7 @@ async def main(message: cl.Message):
     # Extract customer info from current response and update session
     current_customer_info = extract_customer_info_from_response(response)
     for key in ['name', 'phone', 'address', 'email']:
-        if current_customer_info[key]:
+        if current_customer_info[key] and not user_sessions[user_id][key]:
             user_sessions[user_id][key] = current_customer_info[key]
     
     # Check if this is menu browsing or order discussion - SHOW IMAGES
@@ -259,11 +275,15 @@ Please prepare this order immediately and contact the customer for delivery conf
             notification_manager.send_sms(manager_message)
             notification_manager.send_whatsapp(manager_message)
             
-            # Send email to owner
-            owner_emails = os.environ.get("OWNER_EMAILS", "").split(',')
+            # Send email to owner (preserving original email logic)
+            owner_emails = os.environ.get("MANAGER_EMAIL", "").split(',')
+            if not owner_emails or not owner_emails[0]:
+                # Fallback to original environment variable
+                owner_emails = os.environ.get("OWNER_EMAILS", "").split(',')
+                
             if owner_emails and owner_emails[0]:
                 email_subject = f"🆕 FINAL ORDER - ₦{total_amount:,.2f} - {customer_info['name'] or 'Customer'}"
-                notification_manager.send_emails(owner_emails, manager_message)
+                notification_manager.send_emails(owner_emails, email_subject, manager_message)
             
             # Generate payment link for customer
             payment_response = payment_service.initiate_payment(
@@ -277,7 +297,7 @@ Please prepare this order immediately and contact the customer for delivery conf
                 }
             )
             
-            if payment_response.get('status'):
+            if payment_response and payment_response.get('status'):
                 payment_url = payment_response['data']['authorization_url']
                 
                 # Send payment message to user
@@ -298,7 +318,57 @@ Please complete your payment using this secure link:
                 error_message = "Payment system temporarily unavailable. Please try again in a few minutes or contact us directly."
                 await cl.Message(content=error_message).send()
 
-    # Send normal response without images
+    # Check if order is confirmed (original logic as fallback)
+    elif ("ORDER CONFIRMED" in response or "Total: ₦" in response) and not user_sessions[user_id]['notification_sent']:
+        # Extract total amount from response
+        total_line = [line for line in response.split('\n') if 'Total:' in line]
+        total_amount = 0.0
+        
+        if total_line:
+            try:
+                amount_str = re.search(r'₦?[\d,]+\.?\d*', total_line[0])
+                if amount_str:
+                    total_amount = float(amount_str.group().replace('₦', '').replace(',', ''))
+            except:
+                total_amount = 0.0
+        
+        # Send notifications with CUSTOMER INFORMATION
+        if total_amount > 0:
+            user_info = user_sessions[user_id]
+            
+            # Format manager notification
+            manager_message = f"""
+🚨 **NEW CUSTOMER ORDER** 🚨
+
+👤 **Customer Details:**
+Name: {user_info['name'] or 'Not provided'}
+Phone: {user_info['phone'] or 'Not provided'}
+Address: {user_info['address'] or 'Not provided'}
+
+💰 **Order Total:** ₦{total_amount:,.2f}
+
+📦 **Order Details:**
+{response}
+
+📍 **Action Required:** 
+Please prepare this order and contact customer for delivery!
+"""
+            
+            # Send SMS to manager
+            notification_manager.send_sms(manager_message)
+            
+            # Send WhatsApp to manager  
+            notification_manager.send_whatsapp(manager_message)
+            
+            # Send Email to manager
+            owner_emails = os.environ.get("OWNER_EMAILS", "").split(',')
+            if owner_emails and owner_emails[0]:
+                email_subject = f"New Order - ₦{total_amount:,.2f} - {user_info['name'] or 'Customer'}"
+                notification_manager.send_emails(owner_emails, email_subject, manager_message)
+            
+            user_sessions[user_id]['notification_sent'] = True
+
+    # Send response to user
     await cl.Message(content=response).send()
 
 @fastapi_app.post("/whatsapp/webhook")
@@ -330,7 +400,6 @@ async def whatsapp_webhook(request: Request):
     resp = MessagingResponse()
     resp.message("Thank you! Your order is being processed. We'll contact you shortly.")
     return str(resp)
-
 
 
 

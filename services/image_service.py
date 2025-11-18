@@ -6,155 +6,155 @@ class DishImageService:
             # 🍲 SOUPS AND STEWS
             
             ### Egusi Soups
-            "Egusi Soup with Beef": "https://i.ibb.co.com/0jV7rZ6/egusi.jpg",
-            "Egusi Soup with Fish": "https://i.ibb.co.com/0jV7rZ6/egusi.jpg", 
-            "Egusi Soup with Assorted Meat": "https://i.ibb.co.com/0jV7rZ6/egusi.jpg",
-            "Egusi Soup with Goat Meat": "https://i.ibb.co.com/0jV7rZ6/egusi.jpg",
+            "Egusi Soup with Beef": "/images/egusi.jpg",
+            "Egusi Soup with Fish": "/images/egusi.jpg", 
+            "Egusi Soup with Assorted Meat": "/images/egusi.jpg",
+            "Egusi Soup with Goat Meat": "/images/egusi.jpg",
 
             ### Ogbono Soups
-            "Ogbono Soup with Beef": "https://i.ibb.co.com/7pZJq8m/ogbono.jpg",
-            "Ogbono Soup with Fish": "https://i.ibb.co.com/7pZJq8m/ogbono.jpg",
-            "Ogbono Soup with Okporoko (Stockfish)": "https://i.ibb.co.com/7pZJq8m/ogbono.jpg",
+            "Ogbono Soup with Beef": "/images/ogbono.jpg",
+            "Ogbono Soup with Fish": "/images/ogbono.jpg",
+            "Ogbono Soup with Okporoko (Stockfish)": "/images/ogbono.jpg",
 
             ### Vegetable Soups
-            "Vegetable Soup (Efo Riro)": "https://i.ibb.co.com/5Y6ZXb5/vegetable-soup.jpg",
-            "Bitterleaf Soup (Ofe Onugbu)": "https://example.com/bitterleaf-soup.jpg",
-            "Oha Soup": "https://example.com/oha-soup.jpg",
-            "Afang Soup": "https://i.ibb.co.com/7pZJq8m/afang.jpg",
-            "Edikaikong Soup": "https://i.ibb.co.com/3pL7d2k/edikaikong.jpg",
+            "Vegetable Soup (Efo Riro)": "/images/vegetable-soup.jpg",
+            "Bitterleaf Soup (Ofe Onugbu)": "/images/bitterleaf-soup.jpg",
+            "Oha Soup": "/images/oha-soup.jpg",
+            "Afang Soup": "/images/afang.jpg",
+            "Edikaikong Soup": "/images/edikaikong.jpg",
 
             ### Other Soups
-            "White Soup (Ofe Nsala)": "https://example.com/white-soup.jpg",
-            "Banga Soup": "https://i.ibb.co.com/0jV7rZ6/banga.jpg",
-            "Pepper Soup (Goat)": "https://example.com/pepper-soup-goat.jpg",
-            "Pepper Soup (Fish)": "https://example.com/pepper-soup-fish.jpg",
+            "White Soup (Ofe Nsala)": "/images/white-soup.jpg",
+            "Banga Soup": "/images/banga.jpg",
+            "Pepper Soup (Goat)": "/images/pepper-soup-goat.jpg",
+            "Pepper Soup (Fish)": "/images/pepper-soup-fish.jpg",
 
             # 🍚 SWALLOWS (STARCHY FOODS)
-            "Pounded Yam": "https://i.ibb.co.com/0jV7rZ6/pounded-yam.jpg",
-            "Fufu": "https://i.ibb.co.com/8jD8Y6g/fufu.jpg",
-            "Eba": "https://i.ibb.co.com/7pZJq8m/eba.jpg",
-            "Amala": "https://i.ibb.co.com/3pL7d2k/amala.jpg",
-            "Semovita": "https://i.ibb.co.com/5Y6ZXb5/semo.jpg",
-            "Wheat": "https://example.com/wheat-swallow.jpg",
+            "Pounded Yam": "/images/pounded-yam.jpg",
+            "Fufu": "/images/fufu.jpg",
+            "Eba": "/images/eba.jpg",
+            "Amala": "/images/amala.jpg",
+            "Semovita": "/images/semo.jpg",
+            "Wheat": "/images/wheat-swallow.jpg",
 
             # 🍚 RICE DISHES
             
             ### Jollof Rice
-            "Plain Jollof Rice": "https://i.ibb.co.com/0jV7rZ6/jollof-protein.jpg",
-            "Jollof Rice with Chicken": "https://i.ibb.co.com/0jV7rZ6/jollof-protein.jpg",
-            "Jollof Rice with Beef": "https://i.ibb.co.com/0jV7rZ6/jollof-protein.jpg",
-            "Party Jollof Rice": "https://i.ibb.co.com/0jV7rZ6/jollof-protein.jpg",
+            "Plain Jollof Rice": "/images/jollof-protein.jpg",
+            "Jollof Rice with Chicken": "/images/jollof-protein.jpg",
+            "Jollof Rice with Beef": "/images/jollof-protein.jpg",
+            "Party Jollof Rice": "/images/jollof-protein.jpg",
 
             ### Other Rice Dishes
-            "Fried Rice with Chicken": "https://i.ibb.co.com/5Y6ZXb5/fried-rice.jpg",
-            "Fried Rice with Beef": "https://i.ibb.co.com/5Y6ZXb5/fried-rice.jpg",
-            "Coconut Rice": "https://example.com/coconut-rice.jpg",
-            "Ofada Rice with Ayamase Sauce": "https://example.com/ofada-rice.jpg",
-            "White Rice and Stew": "https://i.ibb.co.com/3pL7d2k/white-rice-stew.jpg",
+            "Fried Rice with Chicken": "/images/fried-rice.jpg",
+            "Fried Rice with Beef": "/images/fried-rice.jpg",
+            "Coconut Rice": "/images/coconut-rice.jpg",
+            "Ofada Rice with Ayamase Sauce": "/images/ofada-rice.jpg",
+            "White Rice and Stew": "/images/white-rice-stew.jpg",
 
             # 🍗 PROTEIN AND MEAT DISHES
             
             ### Chicken
-            "Grilled Chicken (1/4)": "https://i.ibb.co.com/7pZJq8m/chicken.jpg",
-            "Grilled Chicken (1/2)": "https://i.ibb.co.com/7pZJq8m/chicken.jpg",
-            "Fried Chicken (1/4)": "https://i.ibb.co.com/7pZJq8m/chicken.jpg",
-            "Chicken Stew": "https://i.ibb.co.com/7pZJq8m/chicken.jpg",
+            "Grilled Chicken (1/4)": "/images/chicken.jpg",
+            "Grilled Chicken (1/2)": "/images/chicken.jpg",
+            "Fried Chicken (1/4)": "/images/chicken.jpg",
+            "Chicken Stew": "/images/chicken.jpg",
 
             ### Beef and Goat
-            "Beef Stew": "https://i.ibb.co.com/9hJq8fL/assorted-meat.jpg",
-            "Grilled Beef (Suya Style)": "https://example.com/suya.jpg",
-            "Goat Meat Pepper Soup": "https://example.com/pepper-soup-goat.jpg",
-            "Nkwobi (Spicy Cow Foot)": "https://example.com/nkwobi.jpg",
+            "Beef Stew": "/images/assorted-meat.jpg",
+            "Grilled Beef (Suya Style)": "/images/suya.jpg",
+            "Goat Meat Pepper Soup": "/images/pepper-soup-goat.jpg",
+            "Nkwobi (Spicy Cow Foot)": "/images/nkwobi.jpg",
 
             ### Fish and Seafood
-            "Grilled Tilapia": "https://i.ibb.co.com/5nFz8H/tilapia.jpg",
-            "Grilled Catfish (Point & Kill)": "https://i.ibb.co.com/7pZJq8m/catfish.jpg",
-            "Fried Fish": "https://example.com/fried-fish.jpg",
-            "Fish Stew": "https://example.com/fish-stew.jpg",
+            "Grilled Tilapia": "/images/tilapia.jpg",
+            "Grilled Catfish (Point & Kill)": "/images/catfish.jpg",
+            "Fried Fish": "/images/fried-fish.jpg",
+            "Fish Stew": "/images/fish-stew.jpg",
 
             # 🍢 SNACKS AND STREET FOOD
             
             ### Suya and Barbecue
-            "Beef Suya": "https://example.com/suya.jpg",
-            "Chicken Suya": "https://example.com/chicken-suya.jpg",
-            "Ram Suya": "https://example.com/ram-suya.jpg",
-            "Kilishi (Dried Suya)": "https://example.com/kilishi.jpg",
+            "Beef Suya": "/images/suya.jpg",
+            "Chicken Suya": "/images/chicken-suya.jpg",
+            "Ram Suya": "/images/ram-suya.jpg",
+            "Kilishi (Dried Suya)": "/images/kilishi.jpg",
 
             ### Small Chops
-            "Samosa (2 pieces)": "https://example.com/samosa.jpg",
-            "Spring Rolls (3 pieces)": "https://example.com/spring-rolls.jpg",
-            "Puff Puff (5 pieces)": "https://example.com/puff-puff.jpg",
-            "Meat Pie": "https://example.com/meat-pie.jpg",
-            "Scotch Egg": "https://example.com/scotch-egg.jpg",
+            "Samosa (2 pieces)": "/images/samosa.jpg",
+            "Spring Rolls (3 pieces)": "/images/spring-rolls.jpg",
+            "Puff Puff (5 pieces)": "/images/puff-puff.jpg",
+            "Meat Pie": "/images/meat-pie.jpg",
+            "Scotch Egg": "/images/scotch-egg.jpg",
 
             ### Traditional Snacks
-            "Akara (Bean Cake)": "https://example.com/akara.jpg",
-            "Moi Moi": "https://example.com/moi-moi.jpg",
-            "Roasted Plantain (Bole)": "https://example.com/boli.jpg",
-            "Fried Plantain (Dodo)": "https://example.com/dodo.jpg",
+            "Akara (Bean Cake)": "/images/akara.jpg",
+            "Moi Moi": "/images/moi-moi.jpg",
+            "Roasted Plantain (Bole)": "/images/boli.jpg",
+            "Fried Plantain (Dodo)": "/images/dodo.jpg",
 
             # 🥗 SIDES AND EXTRAS
-            "Fried Plantain": "https://example.com/dodo.jpg",
-            "Boiled Plantain": "https://example.com/boiled-plantain.jpg",
-            "Boiled Yam": "https://example.com/boiled-yam.jpg",
-            "Fried Yam": "https://example.com/fried-yam.jpg",
-            "Garden Salad": "https://example.com/garden-salad.jpg",
-            "Moin Moin": "https://example.com/moi-moi.jpg",
-            "Egg (Fried or Boiled)": "https://example.com/egg.jpg",
+            "Fried Plantain": "/images/dodo.jpg",
+            "Boiled Plantain": "/images/boiled-plantain.jpg",
+            "Boiled Yam": "/images/boiled-yam.jpg",
+            "Fried Yam": "/images/fried-yam.jpg",
+            "Garden Salad": "/images/garden-salad.jpg",
+            "Moin Moin": "/images/moi-moi.jpg",
+            "Egg (Fried or Boiled)": "/images/egg.jpg",
 
             # 🥤 DRINKS AND BEVERAGES
             
             ### Nigerian Traditional Drinks
-            "Zobo Drink": "https://i.ibb.co.com/0jV7rZ6/zobo.jpg",
-            "Kunu Aya (Tiger Nut Drink)": "https://example.com/kunu-aya.jpg",
-            "Fura da Nono": "https://example.com/fura-da-nono.jpg",
-            "Chapman": "https://example.com/chapman.jpg",
+            "Zobo Drink": "/images/zobo.jpg",
+            "Kunu Aya (Tiger Nut Drink)": "/images/kunu-aya.jpg",
+            "Fura da Nono": "/images/fura-da-nono.jpg",
+            "Chapman": "/images/chapman.jpg",
 
             ### Fruit Juices
-            "Orange Juice": "https://example.com/orange-juice.jpg",
-            "Pineapple Juice": "https://example.com/pineapple-juice.jpg",
-            "Mango Juice": "https://example.com/mango-juice.jpg",
-            "Chapman Special": "https://example.com/chapman-special.jpg",
+            "Orange Juice": "/images/orange-juice.jpg",
+            "Pineapple Juice": "/images/pineapple-juice.jpg",
+            "Mango Juice": "/images/mango-juice.jpg",
+            "Chapman Special": "/images/chapman-special.jpg",
 
             ### Soft Drinks and Water
-            "Coke (35cl)": "https://i.ibb.co.com/0jV7rZ6/coke.jpg",
-            "Fanta (35cl)": "https://i.ibb.co.com/5Y6ZXb5/fanta.jpg",
-            "Sprite (35cl)": "https://i.ibb.co.com/3pL7d2k/sprite.jpg",
-            "Maltina": "https://example.com/maltina.jpg",
-            "Bottled Water (50cl)": "https://i.ibb.co.com/7pZJq8m/water.jpg",
+            "Coke (35cl)": "/images/coke.jpg",
+            "Fanta (35cl)": "/images/fanta.jpg",
+            "Sprite (35cl)": "/images/sprite.jpg",
+            "Maltina": "/images/maltina.jpg",
+            "Bottled Water (50cl)": "/images/water.jpg",
 
             ### Hot Beverages
-            "Tea": "https://example.com/tea.jpg",
-            "Coffee": "https://example.com/coffee.jpg",
-            "Milo": "https://example.com/milo.jpg",
-            "Hot Chocolate": "https://example.com/hot-chocolate.jpg",
+            "Tea": "/images/tea.jpg",
+            "Coffee": "/images/coffee.jpg",
+            "Milo": "/images/milo.jpg",
+            "Hot Chocolate": "/images/hot-chocolate.jpg",
 
             # 🍰 DESSERTS AND SWEETS
-            "Chin Chin": "https://example.com/chin-chin.jpg",
-            "Puff Puff with Sugar": "https://example.com/puff-puff.jpg",
-            "Coconut Candy": "https://example.com/coconut-candy.jpg",
-            "Ice Cream (Scoop)": "https://example.com/ice-cream.jpg",
-            "Fruit Salad": "https://example.com/fruit-salad.jpg",
+            "Chin Chin": "/images/chin-chin.jpg",
+            "Puff Puff with Sugar": "/images/puff-puff.jpg",
+            "Coconut Candy": "/images/coconut-candy.jpg",
+            "Ice Cream (Scoop)": "/images/ice-cream.jpg",
+            "Fruit Salad": "/images/fruit-salad.jpg",
 
             # 🍛 COMBO MEALS
             
             ### Executive Combos
-            "Jollof Rice + Chicken + Salad + Drink": "https://i.ibb.co.com/0jV7rZ6/jollof-protein.jpg",
-            "Fried Rice + Beef + Plantain + Drink": "https://i.ibb.co.com/5Y6ZXb5/fried-rice.jpg",
-            "Pounded Yam + Egusi Soup + Assorted Meat": "https://i.ibb.co.com/0jV7rZ6/pounded-yam.jpg",
+            "Jollof Rice + Chicken + Salad + Drink": "/images/jollof-protein.jpg",
+            "Fried Rice + Beef + Plantain + Drink": "/images/fried-rice.jpg",
+            "Pounded Yam + Egusi Soup + Assorted Meat": "/images/pounded-yam.jpg",
 
             ### Student Combos
-            "Jollof Rice + Chicken": "https://i.ibb.co.com/0jV7rZ6/jollof-protein.jpg",
-            "Fried Rice + Beef": "https://i.ibb.co.com/5Y6ZXb5/fried-rice.jpg",
+            "Jollof Rice + Chicken": "/images/jollof-protein.jpg",
+            "Fried Rice + Beef": "/images/fried-rice.jpg",
 
             ### Family Packs
-            "Family Jollof Rice Pack (Serves 4)": "https://i.ibb.co.com/0jV7rZ6/jollof-protein.jpg",
-            "Family Fried Rice Pack (Serves 4)": "https://i.ibb.co.com/5Y6ZXb5/fried-rice.jpg",
+            "Family Jollof Rice Pack (Serves 4)": "/images/jollof-protein.jpg",
+            "Family Fried Rice Pack (Serves 4)": "/images/fried-rice.jpg",
 
             # 🎉 PARTY PACKS
-            "Small Party Pack (Serves 10)": "https://example.com/party-pack.jpg",
-            "Medium Party Pack (Serves 20)": "https://example.com/party-pack.jpg",
-            "Large Party Pack (Serves 50)": "https://example.com/party-pack.jpg"
+            "Small Party Pack (Serves 10)": "/images/party-pack.jpg",
+            "Medium Party Pack (Serves 20)": "/images/party-pack.jpg",
+            "Large Party Pack (Serves 50)": "/images/party-pack.jpg"
         }
     
     def get_dish_image(self, dish_name):
