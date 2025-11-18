@@ -10,7 +10,6 @@
 3. **Choose delivery or pickup** - We'll bring it to you or have it ready for pickup
 4. **Get confirmation** - We'll calculate your total and confirm your order
 
-
 We serve the best Nigerian dishes made with love and traditional recipes. Below is our complete menu with prices in Nigerian Naira (₦).
 
 ## Browse Our Specialties
@@ -186,7 +185,12 @@ We accept:
 - Card Payments
 - Mobile Money
 
----
+## To Place Your Order, Please Provide:
+
+1. **Your Name**
+2. **Phone Number** 
+3. **Delivery Address**
+4. **Your Order Items**
 
 **Ready to order?** Just tell me what you'd like, and I'll help you place your order! You can say things like:
 - "I want Jollof Rice with Chicken"

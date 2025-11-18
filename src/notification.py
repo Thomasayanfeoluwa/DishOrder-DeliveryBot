@@ -69,11 +69,11 @@ class NotificationManager:
             return False
             
         try:
-            with smtplib.SMTP(self.smtp_address) as connection:  # FIXED: Use 'connection' not 'self.connection'
+            with smtplib.SMTP(self.smtp_address, 587) as connection:  
                 connection.starttls()
                 connection.login(self.email, self.email_password)
                 for email in email_list:
-                    connection.sendmail(  # FIXED: Use 'connection' not 'self.connection'
+                    connection.sendmail( 
                         from_addr=self.email,
                         to_addrs=email,
                         msg=f"Subject:New Delivery Order!\n\n{email_body}".encode('utf-8')
@@ -83,3 +83,59 @@ class NotificationManager:
         except Exception as e:
             print(f"Email failed: {e}")
             return False
+        
+    
+
+    def notify_owner(self, order_details, customer_info, total_amount, order_images=None):
+        """
+        Enhanced notification with order images
+        """
+        # Base notification message
+        notification_message = f"""
+    🚨 **NEW CUSTOMER ORDER** 🚨
+
+    👤 **CUSTOMER DETAILS:**
+    📛 Name: {customer_info.get('name', 'Not provided')}
+    📞 Phone: {customer_info.get('phone', 'Not provided')}
+    📍 Address: {customer_info.get('address', 'Not provided')}
+
+    💰 **ORDER TOTAL:** ₦{total_amount:,.2f}
+
+    📦 **ORDER DETAILS:**
+    {order_details}
+    """
+        
+        # Add image references if available
+        if order_images:
+            notification_message += "\n\n📸 **ORDER IMAGES:**\n"
+            for img_url in order_images:
+                notification_message += f"- {img_url}\n"
+        
+        notification_message += "\n📍 **ACTION REQUIRED:** Please prepare this order immediately!"
+        
+        # Send notifications
+        self.send_sms(notification_message[:160])  # SMS limited
+        self.send_whatsapp(notification_message)
+        
+        # Enhanced email with images
+        owner_emails = os.environ.get("OWNER_EMAILS", "").split(',')
+        if owner_emails and owner_emails[0]:
+            email_body = f"""
+    New order received!
+
+    CUSTOMER INFORMATION:
+    Name: {customer_info.get('name', 'Not provided')}
+    Phone: {customer_info.get('phone', 'Not provided')}
+    Address: {customer_info.get('address', 'Not provided')}
+
+    ORDER TOTAL: ₦{total_amount:,.2f}
+
+    ORDER DETAILS:
+    {order_details}
+
+    ORDER IMAGES:
+    {chr(10).join(order_images) if order_images else 'No images available'}
+
+    Please prepare this order immediately!
+            """
+            self.send_emails(owner_emails, email_body)
