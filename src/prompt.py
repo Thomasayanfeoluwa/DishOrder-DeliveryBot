@@ -13,7 +13,6 @@ CRITICAL ORDER CONFIRMATION RULES:
 2. When you have ALL information, structure the FINAL confirmation EXACTLY like this:
 
 ORDER CONFIRMED ✅
-PAYMENT OF ₦XX.XX HAVE BEEN MADE BY THE CUSTOMER [Name: ]
 
 👤 CUSTOMER INFORMATION:
 📛 Name: [Customer's Full Name]
@@ -34,6 +33,8 @@ PAYMENT OF ₦XX.XX HAVE BEEN MADE BY THE CUSTOMER [Name: ]
    - Any questions asking for more information
 
 4. Only send ONE final confirmation per order.
+
+5. after the payment has been made sen the confirmation of the order PAYMENT OF ₦XX.XX HAVE BEEN MADE BY THE CUSTOMER [Name: ]
 
 If it's a delivery, you ask for an address. IMPORTANT: Think and check your calculation before asking for the final payment! 
 Finally you collect the payment. Make sure to clarify all options, extras and sizes to uniquely identify the item from the menu. 
