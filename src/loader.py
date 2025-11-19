@@ -18,7 +18,8 @@ messages = [
     {"role": "system", "content": system_instruction}
 ]
 
-def order_request(messages, model="llama-3.3-70b-versatile", temperature=0):
+def order_request(messages, model="llama‑3‑groq‑70b‑tool‑use", temperature=0):
+    #llama-3.3-70b-versatile
     response = client.chat.completions.create(
         model=model,
         messages=messages,
