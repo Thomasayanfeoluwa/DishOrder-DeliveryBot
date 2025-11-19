@@ -124,7 +124,7 @@ def load_local_image(image_path):
     """Load local image and convert to base64 for display"""
     try:
         # Define the absolute path to the images folder
-        images_folder = Path(os.getenv("IMAGES_FOLDER"))
+        images_folder =  images_folder = Path("images")
         
         # Extract the base filename without extension
         filename_without_ext = Path(image_path).stem
@@ -193,7 +193,7 @@ def initialize_session_state():
     if 'customer_info_updated' not in st.session_state:
         st.session_state.customer_info_updated = False
 
-# FIXED: More flexible order confirmation detection
+# More flexible order confirmation detection
 def is_final_confirmation(response):
     """
     FLEXIBLE check for FINAL order confirmation
@@ -598,13 +598,23 @@ def main():
                         with cols[idx]:
                             # Handle both URL and local file paths
                             if img_url.startswith(('http://', 'https://')):
-                                # It's a URL - use directly with width parameter
-                                st.image(img_url, caption="Dish Image", width="stretch")
+                                # For URLs, try to extract dish name from URL or use a generic caption
+                                dish_name = "Dish"
+                                if '/' in img_url:
+                                    # Try to get the dish name from the URL path
+                                    url_parts = img_url.split('/')
+                                    if url_parts:
+                                        last_part = url_parts[-1]
+                                        if '.' in last_part:
+                                            dish_name = Path(last_part).stem.replace('_', ' ').title()
+                                st.image(img_url, caption=dish_name, width="stretch")
                             else:
                                 # It's a local path - use our helper function
                                 local_image_data = load_local_image(img_url)
                                 if local_image_data:
-                                    st.image(local_image_data, caption="Dish Image", width="stretch")
+                                    # Extract dish name from the image path and use it as caption
+                                    dish_name = Path(img_url).stem.replace('_', ' ').title()
+                                    st.image(local_image_data, caption=dish_name, width="stretch")
         
         # DEBUG: Check if order confirmation is detected
         st.sidebar.markdown("---")
