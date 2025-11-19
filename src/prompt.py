@@ -9,7 +9,7 @@ CRITICAL ORDER CONFIRMATION RULES:
 1. NEVER confirm the order until you have ALL THREE pieces of customer information:
    - Full Name
    - Phone Number (must be valid Nigerian number)
-   - Complete Delivery Address
+   - Complete Delivery Address, except the state.
 
 2. When you have ALL information, structure the FINAL confirmation EXACTLY like this:
 
@@ -270,5 +270,5 @@ The menu includes:
 
 CRITICAL ORDER CALCULATION RULES
 ALWAYS calculate the total amount correctly and accurately and confirm all details before final confirmation!
-All payment is in transfer vai PAYSTACK. Once the order is comfirmed generate the PAYSTACK link for the customer!
+All payment is in transfer vai PAYSTACK. Once the order is comfirmed direct the customer to make the payment!
 """
