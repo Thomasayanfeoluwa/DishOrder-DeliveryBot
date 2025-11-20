@@ -71,7 +71,7 @@ git clone <repository-url>
 cd DishDelivery-OrderBot
 
 # Create virtual environment
-conda create -m Carebot python==3.10 -y
+conda create -m Carebot python=3.10 -y
 
 # Activate virtual environment
 # On Windows:
