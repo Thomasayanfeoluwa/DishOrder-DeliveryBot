@@ -13,39 +13,8 @@ WhatsApp Integration: Order directly through WhatsApp messages
 Session Management: Customer data tracking across conversations
 Error Handling: Robust error handling and retry mechanisms
 
-# 🏗️ Project Architecture #
-
-
-System Architecture Diagram
-text
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   User          │    │   Chainlit       │    │   Groq LLM      │
-│   Interface     │◄──►│   Application    │◄──►│   (Llama 3.3)   │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-         │                        │                        │
-         │                        │                        │
-         ▼                        ▼                        ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   WhatsApp      │    │   Session        │    │   Image         │
-│   Webhook       │    │   Management     │    │   Service       │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-         │                        │                        │
-         │                        │                        │
-         ▼                        ▼                        ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Payment       │    │   Notification   │    │   Order         │
-│   Service       │    │   Manager        │    │   Processing    │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-         │                        │                        │
-         │                        │                        │
-         ▼                        ▼                        ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Paystack      │    │   Twilio SMS/    │    │   Email         │
-│   API           │    │   WhatsApp       │    │   SMTP          │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-
 # Data Flow
-
+User Interaction → Streamlit Interface → Groq LLM Processing
 User Interaction → Chainlit Interface → Groq LLM Processing
 Order Confirmation → Payment Link Generation → Paystack
 Successful Payment → Multi-channel Notifications → Restaurant
@@ -63,10 +32,11 @@ DishDelivery-OrderBot/
 │   ├── __init__.py
 │   ├── image_service.py             # Dish image management and URL mapping
 │   └── payment_service.py           # Paystack payment integration
-├── 📁 assets/                       # Static assets (optional)
-│   └── images/                      # Local dish images (if needed)
+├── 📁 images/                       # Images folder
+│   └── images                       # Local dish images 
 ├── app.py                           # Main Chainlit application entry point
 ├── chainlit.md                      # Web interface content and welcome page
+|__ dashboard.py                     # Streamlit Web interface
 ├── .env                             # Environment variables (create this)
 ├── .env.example                     # Environment variables template
 ├── requirements.txt                 # Python dependencies
@@ -101,7 +71,7 @@ git clone <repository-url>
 cd DishDelivery-OrderBot
 
 # Create virtual environment
-python -m venv Carebot
+conda create -m Carebot python==3.10 -y
 
 # Activate virtual environment
 # On Windows:
@@ -164,336 +134,30 @@ Use this password in MY_EMAIL_PASSWORD
 bash
 # Start the application
 chainlit run app.py
-
-# Or with clear cache
-chainlit run app.py --clear-cache
+streamlit run dashboard.py
 
 # The app will be available at: http://localhost:8000
 📋 Core Components Documentation
 🎯 app.py - Main Application
+🎯 dashboard.py
 Purpose: Orchestrates the entire order processing workflow
 
-# Key Functions:
-@cl.on_chat_start - Initial welcome message
-@cl.on_message - Main message processing handler
-main() - Processes user messages and manages order flow
-is_final_confirmation() - Detects complete order confirmations
-extract_customer_info() - Parses customer details from conversation
-WhatsApp webhook integration for messaging
 
-# Flow Control:
-User message → LLM processing → Response generation
-Customer info extraction → Session storage
-Order confirmation detection → Notification triggering
-Payment link generation → User redirection
-
-# 🔔 src/notification.py - Notification System
-Purpose: Manages all outgoing communications to restaurant owners
-
-# Key Methods:
-__init__() - Initializes Twilio client and email settings
-send_sms() - Sends SMS alerts to restaurant owners
-send_whatsapp() - Sends WhatsApp business messages
-send_emails() - Sends detailed email notifications
-notify_owner() - Coordinates multi-channel notifications
-
-# Features:
-Error handling for failed notifications
-Multi-channel redundancy
-Structured message formatting
-Customer detail inclusion
-
-# 🧠 src/loader.py - AI Integration
-Purpose: Handles communication with Groq LLM API
-
-# Key Features:
-order_request() - Main LLM communication function
-Exponential backoff retry mechanism
-Error handling for API failures
-Conversation history management
-Model configuration (Llama 3.3 70B)
-
-# 📝 src/prompt.py - AI Instructions
-Purpose: Contains system instructions and complete menu data
-
-# Contents:
-Complete Nigerian restaurant menu with prices
-Order confirmation protocols
-Customer data collection rules
-Conversational style guidelines
-Nigerian cultural context integration
-
-# 🖼️ services/image_service.py - Dish Images
-Purpose: Manages dish photo display and mapping
-
-# Key Methods:
-get_dish_image() - Returns image URL for specific dish
-get_images_for_order() - Extracts relevant images from order text
-Comprehensive dish-to-image mapping
-Image Sources:
-Pre-uploaded to ImgBB CDN
-Professional food photography
-Organized by menu categories
-
-# 💳 services/payment_service.py - Payments
-# Purpose: Handles Paystack payment integration
-
-# Key Methods:
-initiate_payment() - Generates Paystack payment links
-verify_payment() - Confirms payment completion
-Secure transaction handling
-Webhook integration ready
-
-# 🔌 API Integrations Details
-Groq LLM API
-Endpoint: https://api.groq.com/openai/v1/chat/completions
-
-# Model: llama-3.3-70b-versatile
-
-# Features: Fast inference, conversational AI, order calculation
-
-# Rate Limits: Generous free tier, suitable for deployment
-
-# Twilio API
-# SMS: Programmable Messaging API
-# WhatsApp: Business API via Twilio
-
-# Features: Global delivery, delivery receipts, error handling
-
-# Paystack API
-Payment Methods: Card, Bank Transfer, USSD, Mobile Money
-
-# Security: PCI DSS compliant, tokenization
-
-# Features: Recurring payments, split payments, verification
-
-# Test Mode: Full functionality without real money
-
-# ImgBB API
-Storage: Free image hosting
-
-# CDN: Global content delivery
-
-# Features: No compression, direct links, no watermarks
-
-# 🎮 Usage Examples
-# Web Interface Ordering
-text
-User: "I want Jollof Rice with Chicken and a Coke"
-AI: "How you dey! Jollof Rice with Chicken (₦2,500) + Coke (₦200) = ₦2,700. 
-     Is this for delivery or pickup?"
-
-User: "Delivery to 123 Main Street, my name is John, phone 08123456789"
-AI: "ORDER CONFIRMED ✅
-     👤 CUSTOMER INFORMATION:
-     📛 Name: John
-     📞 Phone: 08123456789
-     📍 Address: 123 Main Street
-     
-     📦 ORDER SUMMARY:
-     - Jollof Rice with Chicken: ₦2,500
-     - Coke: ₦200
-     
-     💰 TOTAL: ₦2,700
-     
-     Please complete payment: [Paystack Link]"
-WhatsApp Ordering
-text
-User: "Hi, I'd like Pounded Yam and Egusi Soup for delivery"
-AI: "Welcome! Pounded Yam (₦800) + Egusi Soup (₦2,500) = ₦3,300. 
-     Please provide your name, phone number, and delivery address."
-
-User: "My name is Ada, phone 08012345678, address 45 Lagos Street"
-AI: "ORDER CONFIRMED ✅
-     [Payment Link Sent]
-     Thank you! Your order is being processed."
-
-# 🔐 Security Features
-Environment Variables: Sensitive data protection
-API Key Management: Secure credential storage
-Input Validation: User input sanitization
-Session Isolation: User data separation
-Payment Security: PCI-compliant payment processing
-Error Logging: Secure error handling without data exposure
-
-# 📊 Notification Templates
-SMS to Restaurant Owner
-text
-
-# 🚨 NEW ORDER: ₦12,500
-Customer: John - 08123456789
-Address: 123 Main Street
-Items: Jollof Rice, Chicken, Coke
-Prepare immediately!
-WhatsApp to Restaurant Owner
-text
-
-# 🚨 **NEW CUSTOMER ORDER** 🚨
-
-👤 **CUSTOMER DETAILS:**
-📛 Name: John
-📞 Phone: 08123456789
-📍 Address: 123 Main Street
-
-💰 **ORDER TOTAL:** ₦12,500
-
-📦 **ORDER SUMMARY:**
-- Jollof Rice with Chicken: ₦2,500
-- Pounded Yam: ₦800
-- Egusi Soup: ₦2,500
-- Coke: ₦200
-
-📍 **ACTION REQUIRED:** 
-Please prepare this order immediately!
-Email to Restaurant Team
-text
-Subject: 🆕 NEW ORDER - ₦12,500 - John
-
-Dear Team,
-
-A new order has been received:
-
-CUSTOMER INFORMATION:
-Name: John
-Phone: 08123456789
-Address: 123 Main Street
-
-ORDER TOTAL: ₦12,500
-
-ORDER DETAILS:
-- Jollof Rice with Chicken: ₦2,500
-- Pounded Yam: ₦800
-- Egusi Soup: ₦2,500
-- Coke: ₦200
-
-Please prepare this order immediately and contact the customer for delivery confirmation.
-
-Best regards,
-DishDelivery Auto-Notifier
-🚀 Deployment Instructions
-Local Development
-bash
-# Development mode with auto-reload
-chainlit run app.py --port 8000 --watch
-Production Deployment
-Option 1: Traditional VPS
-bash
-# Install production dependencies
-pip install gunicorn
-
-# Run with Gunicorn
-gunicorn -w 4 -k uvicorn.workers.UvicornWorker app:app
-
-# Setup systemd service
-sudo nano /etc/systemd/system/dishdelivery.service
-Option 2: Docker Deployment
-dockerfile
-FROM python:3.10-slim
-
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . .
-EXPOSE 8000
-
-CMD ["chainlit", "run", "app.py", "--port", "8000", "--host", "0.0.0.0"]
-Option 3: Cloud Platform
-Railway: One-click deployment
-
-Heroku: Container-based deployment
-
-AWS EC2: Traditional VM deployment
-
-Google Cloud Run: Serverless container deployment
-
-Production Checklist
-Set production environment variables
-
-Configure custom domain with SSL
-
-Setup Paystack webhooks for payment verification
-
-Configure Twilio webhook URLs
-
-Setup monitoring and logging
-
-Configure backup procedures
-
-Performance testing completed
-
-🐛 Troubleshooting Guide
-Common Issues and Solutions
-Groq API Errors
-python
-# Symptom: 500 Internal Server Error
-# Solution: Add retry logic and error handling
-def order_request(messages, max_retries=3):
-    for attempt in range(max_retries):
-        try:
-            response = client.chat.completions.create(...)
-            return response
-        except Exception as e:
-            if attempt < max_retries - 1:
-                time.sleep(2 ** attempt)
-            else:
-                return "System busy, please try again"
-Twilio Authentication Failures
-bash
-# Symptom: Error 20003 - Authenticate
-# Solution: Verify credentials
-TWILIO_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-TWILIO_AUTH_TOKEN=your_actual_auth_token_here
-TWILIO_VIRTUAL_NUMBER=+1234567890  # Must be purchased number
-Email Delivery Issues
-bash
-# Symptom: SMTP Authentication Error
-# Solution: Use App Password, not regular password
-MY_EMAIL=youremail@gmail.com
-MY_EMAIL_PASSWORD=abcd efgh ijkl mnop  # 16-character app password
-Payment Link Generation Failures
-python
-# Symptom: Paystack API errors
-# Solution: Verify keys and amount format
-amount = int(total_amount * 100)  # Convert to kobo
-Logs and Debugging
-Enable debug logging by adding to app.py:
-
-python
-import logging
-logging.basicConfig(level=logging.DEBUG)
-
-# 📈 Monitoring and Analytics
-# Key Metrics to Track
-Orders per day/hour
-Average order value
-Popular menu items
-Payment success rate
-Customer acquisition channels
-Peak ordering times
-
-# Fork the repository
-Create a feature branch (git checkout -b feature/amazing-feature)
-Commit your changes (git commit -m 'Add amazing feature')
-Push to the branch (git push origin feature/amazing-feature)
-Open a Pull Request
-
-# Development Setup
-bash
-
-# Install development dependencies
-pip install -r requirements-dev.txt
-
-# Run tests
-pytest tests/
-
-# 📄 License
-This project is licensed under the MIT License.
-
-
-# 🆘 Support
-# Getting Help
-Documentation: Check this README first
 Issues: Create a GitHub issue for bugs
 Discussions: Use GitHub discussions for questions
 Email: Contact ayanfeoluwadegoke@gmail.com
+
+
+
+
+![WhatsApp Image 2025-11-20 at 12 52 20_8aa6140d](https://github.com/user-attachments/assets/421c66e2-f3f4-4ba1-b62b-8354e045cbee)
+
+![WhatsApp Image 2025-11-20 at 12 52 20_7dbe052c](https://github.com/user-attachments/assets/371384b6-798f-46ea-b2ba-e8ae7d9adad8)
+
+<img width="1142" height="614" alt="Screenshot (122)" src="https://github.com/user-attachments/assets/82e030fe-2893-491b-abdb-2f9611916ea1" />
+
+
+
+
+
+
