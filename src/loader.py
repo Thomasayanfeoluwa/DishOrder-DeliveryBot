@@ -1,11 +1,16 @@
 from groq import Groq
 from src.prompt import system_instruction
+import streamlit as st
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-api_key = os.environ.get("GROQ_API_KEY")
+# api_key = os.environ.get("GROQ_API_KEY")
+api_key = st.secrets.get("GROQ_API_KEY")
+
+
+st.write("API key loaded:", "Yes" if api_key else "No")
 
 if not api_key:
     raise ValueError("GROQ_API_KEY environment variable not set.")
