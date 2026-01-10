@@ -47,14 +47,13 @@ DishDelivery-OrderBot/
 # 🔧 Technology Stack #
 
 Component	Technology	Purpose
-Frontend	Chainlit	Interactive chat interface
+Frontend	Streamlit	Interactive chat interface
 Backend	Python 3.10+	Application logic
 AI/LLM	Groq API (Llama 3.3 70B)	Natural language order processing
 Payments	Paystack API	Secure Nigerian payment processing
 Notifications	Twilio API	SMS & WhatsApp alerts
 Email	SMTP (Gmail)	Email notifications to owners
 Image Hosting	ImgBB	Free CDN for dish photos
-Web Framework	FastAPI (via Chainlit)	HTTP server and webhooks
 
 # 🛠️ Installation & Setup
 Prerequisites
