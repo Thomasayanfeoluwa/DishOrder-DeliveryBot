@@ -135,9 +135,8 @@ bash
 chainlit run app.py
 streamlit run dashboard.py
 
-# The app will be available at: http://localhost:8000
+# The app will be available at: [http://localhost:8000](https://dishorder-deliverybot-de2jdgxfjjvy5rkeevgz23.streamlit.app/)
 📋 Core Components Documentation
-🎯 app.py - Main Application
 🎯 dashboard.py
 Purpose: Orchestrates the entire order processing workflow
 
